@@ -29,7 +29,7 @@ public class Person extends PanacheEntityBase {
     @Column(name = "PHONE")
     public String phone;
 
-    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     public Set<OwnersDocument> ownersDocuments = new HashSet<>();
 
     public void addOwnersDocument(OwnersDocument ownersDocument){

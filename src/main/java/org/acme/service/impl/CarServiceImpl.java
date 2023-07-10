@@ -2,16 +2,15 @@ package org.acme.service.impl;
 
 import jakarta.inject.Inject;
 import org.acme.entity.Car;
-import org.acme.entity.Person;
 import org.acme.repository.CarRepository;
 import org.acme.service.CarService;
 
 import java.util.List;
 
-public class CarSeviceImpl implements CarService {
-
+public class CarServiceImpl implements CarService {
     @Inject
     CarRepository carRepository;
+
     @Override
     public List<Car> getAll() {
         return carRepository.findAll().list();
@@ -25,23 +24,21 @@ public class CarSeviceImpl implements CarService {
     @Override
     public String add(Car car) {
         carRepository.persist(car);
-        return "Added " + car.getName();
+        return "Added: " + car.getName();
     }
 
     @Override
     public String deleteById(Long id) {
-        Car car = carRepository.findById(id);
-        carRepository.deleteById(id);
-        return "Deleted + " + car.getName();
+        Car existingCar = carRepository.findById(id);
+        return "Deleted: " + existingCar.getName();
     }
 
     @Override
     public String update(Long id, Car car) {
-        Car c = carRepository.findById(id);
-        c.setName(car.getName());
-        c.setColor(car.getColor());
-        c.setMaxSpeed(car.getMaxSpeed());
-
-        return "Updated + " + c.getName();
+        Car existingCar = carRepository.findById(id);
+        existingCar.setName(car.getName());
+        existingCar.setColor(car.getColor());
+        existingCar.setMaxSpeed(car.getMaxSpeed());
+        return "Updated: " + existingCar.getName();
     }
 }

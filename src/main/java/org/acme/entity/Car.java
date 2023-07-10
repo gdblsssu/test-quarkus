@@ -9,6 +9,8 @@ public class Car extends PanacheEntityBase {
 
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Car_SEQ")
+    @SequenceGenerator(name = "Car_SEQ", sequenceName = "Car_SEQ", allocationSize = 10)
     public Long id;
 
     @Column(name = "NAME")
