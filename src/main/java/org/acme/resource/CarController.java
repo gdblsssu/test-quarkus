@@ -68,6 +68,7 @@ public class CarController {
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarDTO.class)))
     public Response add(
             @Parameter(description = "Car to add", required = true)
+            @Valid
             CarDTO carDTO
     ){
         carService.add(carDTO);
@@ -106,6 +107,7 @@ public class CarController {
             @Parameter(description = "ID needed to find the car to be updated", required = true)
             @PathParam("id") Long id,
             @Parameter(description = "Car with data to update", required = true)
+            @Valid
             CarDTO carDTO
     ){
         carService.update(id, carDTO);

@@ -1,11 +1,18 @@
 package org.acme.dto;
 
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 public class CarDTO {
     public Long id;
+    @NotBlank
     public String name;
+    @NotBlank
     public String color;
+    @Min(10)
+    @Max(400)
     public Integer maxSpeed;
 
     public CarDTO(Long id, String name, String color, Integer maxSpeed) {
