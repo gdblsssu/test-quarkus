@@ -25,24 +25,20 @@ public class OwnersDocumentServiceImpl implements OwnersDocumentService {
     }
 
     @Override
-    public String add(OwnersDocument ownersDocument) {
+    public void add(OwnersDocument ownersDocument) {
         ownersDocumentRepository.persist(ownersDocument);
-        return "Added owners document: " + " - " + ownersDocument.getCar().getName();
     }
 
     @Override
-    public String deleteById(Long id) {
-        OwnersDocument ownersDocument = ownersDocumentRepository.findById(id);
+    public void deleteById(Long id) {
         ownersDocumentRepository.deleteById(id);
-        return "Deleted owners document: " + ownersDocument.getPerson().getName() + " - " + ownersDocument.getCar().getName();
     }
 
     @Override
-    public String update(Long id, OwnersDocument ownersDocument) {
+    public void update(Long id, OwnersDocument ownersDocument) {
         OwnersDocument ownersDocumentOld = ownersDocumentRepository.findById(id);
         ownersDocumentOld.setCar(ownersDocument.getCar());
         ownersDocumentOld.setNote(ownersDocument.getNote());
         ownersDocumentOld.setPerson(ownersDocument.getPerson());
-        return "Updated owners document: " + ownersDocument.getPerson().getName() + " - " + ownersDocument.getCar().getName();
     }
 }

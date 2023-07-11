@@ -24,25 +24,21 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public String add(Person person) {
+    public void add(Person person) {
         personRepository.persist(person);
-        return "Added: " + person.getName();
     }
 
     @Override
-    public String deleteById(Long id) {
-        Person existingPerson = personRepository.findById(id);
+    public void deleteById(Long id) {
         personRepository.deleteById(id);
-        return "Deleted: " + existingPerson.getName();
     }
 
     @Override
-    public String update(Long id, Person person) {
+    public void update(Long id, Person person) {
         Person existingPerson = personRepository.findById(id);
         existingPerson.setName(person.getName());
         existingPerson.setSurname(person.getSurname());
         existingPerson.setAge(person.getAge());
         existingPerson.setPhone(person.getPhone());
-        return "Updated: " + existingPerson.getName();
     }
 }
