@@ -1,53 +1,60 @@
 package org.acme.resource;
 
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import org.acme.entity.Car;
 import org.acme.service.CarService;
+
+import java.util.List;
 
 @Path("/cars")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CarController {
 
-   /* @Inject
-    CarService carService; //  Unsatisfied dependency*/
+    @Inject
+    CarService carService;
 
-   /* @GET
-    public List<Car> getAllCars() {
+    @GET
+    public List<Car> getAll(){
         return carService.getAll();
     }
 
     @GET
-    @Path("{id}")
+    @Path("/{id}")
     public Car getById(
             @PathParam("id") Long id
-    ) {
+    ){
         return carService.getById(id);
     }
 
     @POST
     @Transactional
-    public String addCar(Car car) {
-        return carService.add(car);
+    public List<Car> add(
+            Car car
+    ){
+        carService.add(car);
+        return carService.getAll();
     }
 
     @DELETE
     @Path("{id}")
     @Transactional
-    public String deleteCar(
+    public void delete(
             @PathParam("id") Long id
-    ) {
-        return carService.deleteById(id);
+    ){
+        carService.delete(id);
     }
 
     @PUT
-    @Path("id")
+    @Path("{id}")
     @Transactional
-    public String updateCar(
+    public void update(
             @PathParam("id") Long id,
             Car car
-    ) {
-        return carService.update(id, car);
-    }*/
+    ){
+        carService.update(id, car);
+    }
 }
