@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.acme.dto.PersonDTO;
 import org.acme.entity.Person;
 import org.acme.service.PersonService;
 import org.eclipse.microprofile.metrics.MetricUnits;
@@ -65,8 +66,8 @@ public class PersonController {
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class)))
     public Response add(
             @Parameter(description = "Person to add", required = true)
-            Person person){
-        personService.add(person);
+            PersonDTO personDTO){
+        personService.add(personDTO);
         return Response.ok(Response.status(Response.Status.CREATED)).entity(personService.getAll()).build();
     }
 
@@ -102,9 +103,9 @@ public class PersonController {
             @Parameter(description = "ID needed to find the person to be updated", required = true)
             @PathParam("id") Long id,
             @Parameter(description = "Person with data to update", required = true)
-            Person person
+            PersonDTO personDTO
     ){
-        personService.update(id, person);
+        personService.update(id, personDTO);
         return Response.ok(personService.getById(id)).build();
     }
 }

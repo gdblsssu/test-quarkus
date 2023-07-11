@@ -14,7 +14,7 @@ public class OwnersDocument extends PanacheEntityBase {
     @SequenceGenerator(name = "OWNERSDOCUMENT_SEQ", sequenceName = "OWNERSDOCUMENT_SEQ", allocationSize = 10)
     public Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "person")
     @JsonIgnore
     public Person person;
@@ -25,6 +25,8 @@ public class OwnersDocument extends PanacheEntityBase {
 
     @Column(name = "NOTE")
     public String note;
+
+
 
     public Long getId() {
         return id;

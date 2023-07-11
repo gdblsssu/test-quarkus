@@ -2,7 +2,9 @@ package org.acme.service.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.acme.dto.PersonDTO;
 import org.acme.entity.Person;
+import org.acme.mappers.PersonMapper;
 import org.acme.repository.PersonRepository;
 import org.acme.service.PersonService;
 
@@ -13,18 +15,22 @@ public class PersonServiceImpl implements PersonService {
 
     @Inject
     PersonRepository personRepository;
+
+
     @Override
-    public List<Person> getAll() {
-        return personRepository.findAll().list();
+    public List<PersonDTO> getAll() {
+        return PersonMapper.INSTANCE.toListDTO(personRepository.findAll().list());
     }
 
     @Override
-    public Person getById(Long id) {
-        return personRepository.findById(id);
+    public PersonDTO getById(Long id) {
+        Person personFromDTO = personRepository.findById(id);
+        return PersonMapper.INSTANCE.toDTO(personFromDTO);
     }
 
     @Override
-    public void add(Person person) {
+    public void add(PersonDTO personDTO) {
+        Person person = PersonMapper.INSTANCE.toEntity(personDTO);
         personRepository.persist(person);
     }
 
@@ -34,11 +40,12 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void update(Long id, Person person) {
+    public void update(Long id, PersonDTO personDTO) {
+        Person personFromDTO = PersonMapper.INSTANCE.toEntity(personDTO);
         Person existingPerson = personRepository.findById(id);
-        existingPerson.setName(person.getName());
-        existingPerson.setSurname(person.getSurname());
-        existingPerson.setAge(person.getAge());
-        existingPerson.setPhone(person.getPhone());
+        existingPerson.setName(personFromDTO.getName());
+        existingPerson.setSurname(personFromDTO.getSurname());
+        existingPerson.setAge(personFromDTO.getAge());
+        existingPerson.setPhone(personFromDTO.getPhone());
     }
 }

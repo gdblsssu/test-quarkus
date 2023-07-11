@@ -1,40 +1,28 @@
-package org.acme.entity;
+package org.acme.dto;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import io.quarkus.hibernate.orm.panache.PanacheQuery;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
+import org.acme.entity.OwnersDocument;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "Person")
-public class Person extends PanacheEntityBase {
-
-    @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Person_SEQ")
-    @SequenceGenerator(name = "Person_SEQ", sequenceName = "Person_SEQ", allocationSize = 10)
-    public Long id;
-
-    @Column(name = "NAME")
+public class PersonDTO {
+    Long id;
     public String name;
-
-    @Column(name = "SURNAME")
     public String surname;
-
-    @Column(name = "AGE")
     public Integer age;
-
-    @Column(name = "PHONE")
     public String phone;
-
-    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<OwnersDocument> ownersDocuments = new HashSet<>();
-
-    public void addOwnersDocument(OwnersDocument ownersDocument){
-        ownersDocument.person = this;
-        this.ownersDocuments.add(ownersDocument);
+    public PersonDTO(Long id, String name, String surname, Integer age, String phone, Set<OwnersDocument> ownersDocuments) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.phone = phone;
+        this.ownersDocuments = ownersDocuments;
     }
 
     public Long getId() {

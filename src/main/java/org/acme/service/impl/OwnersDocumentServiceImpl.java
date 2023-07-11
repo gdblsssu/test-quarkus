@@ -2,7 +2,9 @@ package org.acme.service.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.acme.dto.OwnersDocumentDTO;
 import org.acme.entity.OwnersDocument;
+import org.acme.mappers.OwnersDocumentMapper;
 import org.acme.repository.OwnersDocumentRepository;
 import org.acme.service.OwnersDocumentService;
 
@@ -15,18 +17,22 @@ public class OwnersDocumentServiceImpl implements OwnersDocumentService {
     OwnersDocumentRepository ownersDocumentRepository;
 
     @Override
-    public List<OwnersDocument> getAll() {
-        return ownersDocumentRepository.findAll().list();
+    public List<OwnersDocumentDTO> getAll() {
+        List<OwnersDocument> ownersDocumentList = ownersDocumentRepository.findAll().list();
+        return OwnersDocumentMapper.INSTANCE.toListDTO(ownersDocumentList);
     }
 
     @Override
-    public OwnersDocument getById(Long id) {
-        return ownersDocumentRepository.findById(id);
+    public OwnersDocumentDTO getById(Long id) {
+        OwnersDocument existingOwnersDocument = ownersDocumentRepository.findById(id);
+        return OwnersDocumentMapper.INSTANCE.toDTO(existingOwnersDocument);
     }
 
     @Override
-    public void add(OwnersDocument ownersDocument) {
-        ownersDocumentRepository.persist(ownersDocument);
+    public void add(OwnersDocumentDTO ownersDocumentDTO) {
+        OwnersDocument ownersDocumentFromDTO = OwnersDocumentMapper
+                .INSTANCE.toEntity(ownersDocumentDTO);
+        ownersDocumentRepository.persist(ownersDocumentFromDTO);
     }
 
     @Override
@@ -35,10 +41,12 @@ public class OwnersDocumentServiceImpl implements OwnersDocumentService {
     }
 
     @Override
-    public void update(Long id, OwnersDocument ownersDocument) {
-        OwnersDocument ownersDocumentOld = ownersDocumentRepository.findById(id);
-        ownersDocumentOld.setCar(ownersDocument.getCar());
-        ownersDocumentOld.setNote(ownersDocument.getNote());
-        ownersDocumentOld.setPerson(ownersDocument.getPerson());
+    public void update(Long id, OwnersDocumentDTO ownersDocumentDTO) {
+        OwnersDocument ownersDocumentFromDTO = OwnersDocumentMapper
+                .INSTANCE.toEntity(ownersDocumentDTO);
+        OwnersDocument existingOwnersDocument = ownersDocumentRepository.findById(id);
+        existingOwnersDocument.setCar(ownersDocumentFromDTO.getCar());
+        existingOwnersDocument.setNote(ownersDocumentFromDTO.getNote());
+        existingOwnersDocument.setPerson(ownersDocumentFromDTO.getPerson());
     }
 }

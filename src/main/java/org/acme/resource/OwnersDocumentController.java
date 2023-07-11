@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.acme.dto.OwnersDocumentDTO;
 import org.acme.entity.OwnersDocument;
 import org.acme.entity.Person;
 import org.acme.service.OwnersDocumentService;
@@ -67,10 +68,11 @@ public class OwnersDocumentController {
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class)))
     public Response add(
             @Parameter(description = "Owner's document to add", required = true)
-            OwnersDocument ownersDocument
+            OwnersDocumentDTO ownersDocumentDTO
     ){
-        ownersDocumentService.add(ownersDocument);
-        return Response.status(Response.Status.CREATED).entity(ownersDocumentService.getAll()).build();
+        ownersDocumentService.add(ownersDocumentDTO);
+        return Response.status(Response.Status.CREATED)
+                .entity(ownersDocumentService.getAll()).build();
     }
 
     @DELETE
@@ -105,9 +107,9 @@ public class OwnersDocumentController {
             @Parameter(description = "ID needed to find the owner's document to be updated", required = true)
             @PathParam("id") Long id,
             @Parameter(description = "Owner's document with data to update", required = true)
-            OwnersDocument ownersDocument
+            OwnersDocumentDTO ownersDocumentDTO
     ){
-        ownersDocumentService.update(id, ownersDocument);
+        ownersDocumentService.update(id, ownersDocumentDTO);
         return Response.ok(ownersDocumentService.getAll()).build();
     }
 }
