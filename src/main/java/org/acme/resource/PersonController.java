@@ -35,7 +35,7 @@ public class PersonController {
     @APIResponse(
             responseCode = "200",
             description = "List of persons.",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class)))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class)))
     public Response getAll(){
         return Response.ok(personService.getAll()).build();
     }
@@ -48,7 +48,7 @@ public class PersonController {
     @APIResponse(
             responseCode = "200",
             description = "The person",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class)))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class)))
     public Response getById(
             @Parameter(description = "The id that needs to be fetched", required = true)
             @PathParam("id") Long id
@@ -64,7 +64,7 @@ public class PersonController {
     @APIResponse(
             responseCode = "200",
             description = "Person is added",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class)))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class)))
     public Response add(
             @Valid
             @Parameter(description = "Person to add", required = true)
@@ -82,7 +82,7 @@ public class PersonController {
     @APIResponse(
             responseCode = "204",
             description = "Person is deleted",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class)))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class)))
     public Response delete(
             @Parameter(description = "Id required for deletion", required = true)
             @PathParam("id") Long id
@@ -100,7 +100,7 @@ public class PersonController {
     @APIResponse(
             responseCode = "200",
             description = "Person is updated.",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class)))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class)))
     public Response update(
             @Parameter(description = "ID needed to find the person to be updated", required = true)
             @PathParam("id") Long id,

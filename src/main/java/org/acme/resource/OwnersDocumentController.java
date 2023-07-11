@@ -34,7 +34,7 @@ public class OwnersDocumentController {
     @APIResponse(
             responseCode = "200",
             description = "List of owner's documents",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class)))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = OwnersDocumentDTO.class)))
     public Response getAll(){
         return Response.ok(ownersDocumentService.getAll()).build();
     }
@@ -47,7 +47,7 @@ public class OwnersDocumentController {
     @APIResponse(
             responseCode = "200",
             description = "The person.",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class)))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = OwnersDocumentDTO.class)))
     public Response getById(
             @Parameter(description = "The id that needs to be fetched", required = true)
             @PathParam("id") Long id
@@ -63,7 +63,7 @@ public class OwnersDocumentController {
     @APIResponse(
             responseCode = "200",
             description = "Owner's document is added.",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class)))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = OwnersDocumentDTO.class)))
     public Response add(
             @Parameter(description = "Owner's document to add", required = true)
             OwnersDocumentDTO ownersDocumentDTO
@@ -82,7 +82,7 @@ public class OwnersDocumentController {
     @APIResponse(
             responseCode = "204",
             description = "Owner's document is deleted",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class)))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = OwnersDocumentDTO.class)))
     public Response delete(
             @Parameter(description = "Id required for deletion", required = true)
             @PathParam("id") Long id
@@ -100,7 +100,7 @@ public class OwnersDocumentController {
     @APIResponse(
             responseCode = "200",
             description = "Owner's document is updated.",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class)))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = OwnersDocumentDTO.class)))
     public Response update(
             @Parameter(description = "ID needed to find the owner's document to be updated", required = true)
             @PathParam("id") Long id,
