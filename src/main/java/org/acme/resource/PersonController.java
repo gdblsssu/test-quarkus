@@ -2,6 +2,7 @@ package org.acme.resource;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -65,6 +66,7 @@ public class PersonController {
             description = "Person is added",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class)))
     public Response add(
+            @Valid
             @Parameter(description = "Person to add", required = true)
             PersonDTO personDTO){
         personService.add(personDTO);
@@ -102,6 +104,7 @@ public class PersonController {
     public Response update(
             @Parameter(description = "ID needed to find the person to be updated", required = true)
             @PathParam("id") Long id,
+            @Valid
             @Parameter(description = "Person with data to update", required = true)
             PersonDTO personDTO
     ){

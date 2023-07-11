@@ -1,6 +1,9 @@
 package org.acme.dto;
 
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.acme.entity.OwnersDocument;
 
 import java.util.HashSet;
@@ -8,9 +11,15 @@ import java.util.Set;
 
 public class PersonDTO {
     Long id;
+    @NotBlank
     public String name;
+    @NotBlank
     public String surname;
+    
+    @Min(value = 18)
+    @Max(value = 110)
     public Integer age;
+    @NotBlank
     public String phone;
     public Set<OwnersDocument> ownersDocuments = new HashSet<>();
     public PersonDTO(Long id, String name, String surname, Integer age, String phone, Set<OwnersDocument> ownersDocuments) {
