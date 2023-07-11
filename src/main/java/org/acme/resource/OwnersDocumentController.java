@@ -6,7 +6,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.dto.OwnersDocumentDTO;
-import org.acme.entity.OwnersDocument;
 import org.acme.entity.Person;
 import org.acme.service.OwnersDocumentService;
 import org.eclipse.microprofile.metrics.MetricUnits;
@@ -18,7 +17,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
-import java.util.List;
 
 
 @Path("/ownersdocument")
