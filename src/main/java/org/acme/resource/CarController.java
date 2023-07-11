@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import org.acme.dto.CarDTO;
 import org.acme.entity.Car;
 import org.acme.service.CarService;
 
@@ -18,13 +19,13 @@ public class CarController {
     CarService carService;
 
     @GET
-    public List<Car> getAll(){
+    public List<CarDTO> getAll(){
         return carService.getAll();
     }
 
     @GET
     @Path("/{id}")
-    public Car getById(
+    public CarDTO getById(
             @PathParam("id") Long id
     ){
         return carService.getById(id);
@@ -32,10 +33,10 @@ public class CarController {
 
     @POST
     @Transactional
-    public List<Car> add(
-            Car car
+    public List<CarDTO> add(
+            CarDTO carDTO
     ){
-        carService.add(car);
+        carService.add(carDTO);
         return carService.getAll();
     }
 
@@ -53,8 +54,8 @@ public class CarController {
     @Transactional
     public void update(
             @PathParam("id") Long id,
-            Car car
+            CarDTO carDTO
     ){
-        carService.update(id, car);
+        carService.update(id, carDTO);
     }
 }

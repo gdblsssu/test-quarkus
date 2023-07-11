@@ -2,10 +2,13 @@ package org.acme.service.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.acme.dto.CarDTO;
 import org.acme.entity.Car;
+import org.acme.mappers.CarMapper;
 import org.acme.repository.CarRepository;
 import org.acme.service.CarService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -15,17 +18,24 @@ public class CarServiceImpl implements CarService {
     CarRepository carRepository;
 
     @Override
-    public List<Car> getAll() {
-        return carRepository.findAll().list();
+    public List<CarDTO> getAll() {
+        List<Car> carList = carRepository.findAll().list();
+        List<CarDTO> carDTOList = new ArrayList<>();
+        for(Car car: carList){
+            carDTOList.add(CarMapper.INSTANCE.toDTO(car));
+        }
+        return carDTOList;
     }
 
     @Override
-    public Car getById(Long id) {
-        return carRepository.findById(id);
+    public CarDTO getById(Long id) {
+        Car car = carRepository.findById(id);
+        return CarMapper.INSTANCE.toDTO(car);
     }
 
     @Override
-    public void add(Car car) {
+    public void add(CarDTO carDTO) {
+        Car car = CarMapper.INSTANCE.toEntity(carDTO);
         carRepository.persist(car);
     }
 
@@ -35,10 +45,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void update(Long id, Car car) {
+    public void update(Long id, CarDTO carDTO) {
+        Car carFromDTO = CarMapper.INSTANCE.toEntity(carDTO);
         Car existingCar = carRepository.findById(id);
-        existingCar.setName(car.getName());
-        existingCar.setColor(car.getColor());
-        existingCar.setMaxSpeed(car.getMaxSpeed());
+        existingCar.setName(carFromDTO.getName());
+        existingCar.setColor(carFromDTO.getColor());
+        existingCar.setMaxSpeed(carFromDTO.getMaxSpeed());
     }
 }
