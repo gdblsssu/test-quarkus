@@ -2,6 +2,9 @@ package org.acme.service.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
 import org.acme.dto.PersonDTO;
 import org.acme.entity.Person;
 import org.acme.mappers.PersonMapper;
@@ -19,13 +22,18 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<PersonDTO> getAll() {
-        return PersonMapper.INSTANCE.toListDTO(personRepository.findAll().list());
+        List<Person> personList = personRepository.findAll().list();
+        if(personList.isEmpty()){
+            throw new NotFoundException();        }
+        return PersonMapper.INSTANCE.toListDTO(personList);
     }
 
     @Override
     public PersonDTO getById(Long id) {
-        Person personFromDTO = personRepository.findById(id);
-        return PersonMapper.INSTANCE.toDTO(personFromDTO);
+        Person existingPerson = personRepository.findById(id);
+        if(existingPerson == null){
+            throw new NotFoundException();        }
+        return PersonMapper.INSTANCE.toDTO(existingPerson);
     }
 
     @Override
@@ -36,6 +44,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void deleteById(Long id) {
+        Person existingPerson = personRepository.findById(id);
+        if(existingPerson == null){
+            throw new NotFoundException();        }
         personRepository.deleteById(id);
     }
 
@@ -43,6 +54,9 @@ public class PersonServiceImpl implements PersonService {
     public void update(Long id, PersonDTO personDTO) {
         Person personFromDTO = PersonMapper.INSTANCE.toEntity(personDTO);
         Person existingPerson = personRepository.findById(id);
+        if(existingPerson == null){
+            throw new NotFoundException();
+        }
         existingPerson.setName(personFromDTO.getName());
         existingPerson.setSurname(personFromDTO.getSurname());
         existingPerson.setAge(personFromDTO.getAge());

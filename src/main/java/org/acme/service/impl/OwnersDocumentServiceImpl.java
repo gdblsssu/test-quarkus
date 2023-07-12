@@ -2,6 +2,9 @@ package org.acme.service.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
 import org.acme.dto.OwnersDocumentDTO;
 import org.acme.entity.OwnersDocument;
 import org.acme.mappers.OwnersDocumentMapper;
@@ -19,12 +22,18 @@ public class OwnersDocumentServiceImpl implements OwnersDocumentService {
     @Override
     public List<OwnersDocumentDTO> getAll() {
         List<OwnersDocument> ownersDocumentList = ownersDocumentRepository.findAll().list();
+        if(ownersDocumentList.isEmpty()){
+            throw new NotFoundException();
+        }
         return OwnersDocumentMapper.INSTANCE.toListDTO(ownersDocumentList);
     }
 
     @Override
     public OwnersDocumentDTO getById(Long id) {
         OwnersDocument existingOwnersDocument = ownersDocumentRepository.findById(id);
+        if(existingOwnersDocument == null){
+            throw new NotFoundException();
+        }
         return OwnersDocumentMapper.INSTANCE.toDTO(existingOwnersDocument);
     }
 
@@ -37,6 +46,10 @@ public class OwnersDocumentServiceImpl implements OwnersDocumentService {
 
     @Override
     public void deleteById(Long id) {
+        OwnersDocument existingOwnersDocument = ownersDocumentRepository.findById(id);
+        if(existingOwnersDocument == null){
+            throw new NotFoundException();
+        }
         ownersDocumentRepository.deleteById(id);
     }
 
@@ -45,6 +58,9 @@ public class OwnersDocumentServiceImpl implements OwnersDocumentService {
         OwnersDocument ownersDocumentFromDTO = OwnersDocumentMapper
                 .INSTANCE.toEntity(ownersDocumentDTO);
         OwnersDocument existingOwnersDocument = ownersDocumentRepository.findById(id);
+        if(existingOwnersDocument == null){
+            throw new NotFoundException();
+        }
         existingOwnersDocument.setCar(ownersDocumentFromDTO.getCar());
         existingOwnersDocument.setNote(ownersDocumentFromDTO.getNote());
         existingOwnersDocument.setPerson(ownersDocumentFromDTO.getPerson());
