@@ -30,7 +30,7 @@ public class Person extends PanacheEntityBase {
     public String phone;
 
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Set<OwnersDocument> ownersDocuments = new HashSet<>();
+    public Set<OwnersDocument> ownersDocuments;
 
     public void addOwnersDocument(OwnersDocument ownersDocument){
         ownersDocument.person = this;

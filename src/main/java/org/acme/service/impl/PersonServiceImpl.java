@@ -19,7 +19,6 @@ public class PersonServiceImpl implements PersonService {
     @Inject
     PersonRepository personRepository;
 
-
     @Override
     public List<PersonDTO> getAll() {
         List<Person> personList = personRepository.findAll().list();

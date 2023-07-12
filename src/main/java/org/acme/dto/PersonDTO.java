@@ -26,7 +26,7 @@ public class PersonDTO {
     @NotBlank
     @Schema(title = "Person phone", required = true)
     public String phone;
-    public Set<OwnersDocument> ownersDocuments = new HashSet<>();
+    public Set<OwnersDocument> ownersDocuments;
     public PersonDTO(Long id, String name, String surname, Integer age, String phone, Set<OwnersDocument> ownersDocuments) {
         this.id = id;
         this.name = name;

@@ -19,14 +19,12 @@ public class OwnersDocument extends PanacheEntityBase {
     @JsonIgnore
     public Person person;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "car")
     public Car car;
 
     @Column(name = "NOTE")
     public String note;
-
-
 
     public Long getId() {
         return id;
