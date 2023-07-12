@@ -32,7 +32,7 @@ public class PersonODCarController {
     @POST
     @Transactional
     @Counted(name = "performedAddPersonODCar", description = "How many person, od, car have been added.")
-    @Timed(name = "addPersonTimer", description = "A measure of how long it takes to add the person, od, car.", unit = MetricUnits.MILLISECONDS)
+    @Timed(name = "addPersonODCarTimer", description = "A measure of how long it takes to add the person, od, car.", unit = MetricUnits.MILLISECONDS)
     @Operation(summary = "Add new person, document, car", description = "Add new person, document, ca")
     @APIResponse(
             responseCode = "200",
