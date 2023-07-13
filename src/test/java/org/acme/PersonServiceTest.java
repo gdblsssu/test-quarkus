@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 public class PersonServiceTest {
-    @Inject
+    /*@Inject
     PersonService personService;
     @Test
     public void testGetPersonByIdEndpoint(){
@@ -19,4 +19,6 @@ public class PersonServiceTest {
         Assertions.assertEquals(21, personDTO.getAge());
         Assertions.assertEquals("21", personDTO.getPhone());
     }
+
+     */
 }

@@ -18,6 +18,8 @@ public class OwnersDocumentServiceImpl implements OwnersDocumentService {
 
     @Inject
     OwnersDocumentRepository ownersDocumentRepository;
+    @Inject
+    OwnersDocumentMapper ownersDocumentMapper;
 
     @Override
     public List<OwnersDocumentDTO> getAll() {
@@ -25,7 +27,7 @@ public class OwnersDocumentServiceImpl implements OwnersDocumentService {
         if(ownersDocumentList.isEmpty()){
             throw new NotFoundException();
         }
-        return OwnersDocumentMapper.INSTANCE.toListDTO(ownersDocumentList);
+        return ownersDocumentMapper.toListDTO(ownersDocumentList);
     }
 
     @Override
@@ -34,13 +36,12 @@ public class OwnersDocumentServiceImpl implements OwnersDocumentService {
         if(existingOwnersDocument == null){
             throw new NotFoundException();
         }
-        return OwnersDocumentMapper.INSTANCE.toDTO(existingOwnersDocument);
+        return ownersDocumentMapper.toDTO(existingOwnersDocument);
     }
 
     @Override
     public void add(OwnersDocumentDTO ownersDocumentDTO) {
-        OwnersDocument ownersDocumentFromDTO = OwnersDocumentMapper
-                .INSTANCE.toEntity(ownersDocumentDTO);
+        OwnersDocument ownersDocumentFromDTO = ownersDocumentMapper.toEntity(ownersDocumentDTO);
         ownersDocumentRepository.persist(ownersDocumentFromDTO);
     }
 
@@ -55,8 +56,7 @@ public class OwnersDocumentServiceImpl implements OwnersDocumentService {
 
     @Override
     public void update(Long id, OwnersDocumentDTO ownersDocumentDTO) {
-        OwnersDocument ownersDocumentFromDTO = OwnersDocumentMapper
-                .INSTANCE.toEntity(ownersDocumentDTO);
+        OwnersDocument ownersDocumentFromDTO = ownersDocumentMapper.toEntity(ownersDocumentDTO);
         OwnersDocument existingOwnersDocument = ownersDocumentRepository.findById(id);
         if(existingOwnersDocument == null){
             throw new NotFoundException();

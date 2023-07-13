@@ -19,6 +19,8 @@ public class CarServiceImpl implements CarService {
 
     @Inject
     CarRepository carRepository;
+    @Inject
+    CarMapper carMapper;
 
     @Override
     public List<CarDTO> getAll() {
@@ -28,7 +30,7 @@ public class CarServiceImpl implements CarService {
         }
         List<CarDTO> carDTOList = new ArrayList<>();
         for(Car car: carList){
-            carDTOList.add(CarMapper.INSTANCE.toDTO(car));
+            carDTOList.add(carMapper.toDTO(car));
         }
         return carDTOList;
     }
@@ -39,12 +41,12 @@ public class CarServiceImpl implements CarService {
         if(existingCar == null){
             throw new NotFoundException();
         }
-        return CarMapper.INSTANCE.toDTO(existingCar);
+        return carMapper.toDTO(existingCar);
     }
 
     @Override
     public void add(CarDTO carDTO) {
-        Car car = CarMapper.INSTANCE.toEntity(carDTO);
+        Car car = carMapper.toEntity(carDTO);
         carRepository.persist(car);
     }
 
@@ -59,7 +61,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void update(Long id, CarDTO carDTO) {
-        Car carFromDTO = CarMapper.INSTANCE.toEntity(carDTO);
+        Car carFromDTO = carMapper.toEntity(carDTO);
         Car existingCar = carRepository.findById(id);
         if(existingCar == null){
             throw new NotFoundException();

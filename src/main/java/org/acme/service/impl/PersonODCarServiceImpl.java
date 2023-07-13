@@ -24,11 +24,13 @@ public class PersonODCarServiceImpl implements PersonODCarService {
     CarRepository carRepository;
     @Inject
     OwnersDocumentRepository ownersDocumentRepository;
+    @Inject
+    PersonMapper personMapper;
 
     @Override
     public void add(PersonDTO personDTO) {
         Set<OwnersDocument> ownersDocuments = personDTO.getOwnersDocuments();
-        Person person = PersonMapper.INSTANCE.toEntity(personDTO);
+        Person person = personMapper.toEntity(personDTO);
         for(OwnersDocument ownersDocument: ownersDocuments){
             Car car = ownersDocument.getCar();
             carRepository.persist(car);

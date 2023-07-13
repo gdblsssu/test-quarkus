@@ -18,13 +18,15 @@ public class PersonServiceImpl implements PersonService {
 
     @Inject
     PersonRepository personRepository;
+    @Inject
+    PersonMapper personMapper;
 
     @Override
     public List<PersonDTO> getAll() {
         List<Person> personList = personRepository.findAll().list();
         if(personList.isEmpty()){
             throw new NotFoundException();        }
-        return PersonMapper.INSTANCE.toListDTO(personList);
+        return personMapper.toListDTO(personList);
     }
 
     @Override
@@ -32,12 +34,12 @@ public class PersonServiceImpl implements PersonService {
         Person existingPerson = personRepository.findById(id);
         if(existingPerson == null){
             throw new NotFoundException();        }
-        return PersonMapper.INSTANCE.toDTO(existingPerson);
+        return personMapper.toDTO(existingPerson);
     }
 
     @Override
     public void add(PersonDTO personDTO) {
-        Person person = PersonMapper.INSTANCE.toEntity(personDTO);
+        Person person = personMapper.toEntity(personDTO);
         personRepository.persist(person);
     }
 
@@ -51,7 +53,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void update(Long id, PersonDTO personDTO) {
-        Person personFromDTO = PersonMapper.INSTANCE.toEntity(personDTO);
+        Person personFromDTO = personMapper.toEntity(personDTO);
         Person existingPerson = personRepository.findById(id);
         if(existingPerson == null){
             throw new NotFoundException();
