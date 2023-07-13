@@ -2,8 +2,13 @@ package org.acme.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "CAR")
 public class Car extends PanacheEntityBase {
 
@@ -22,35 +27,4 @@ public class Car extends PanacheEntityBase {
     @Column(name = "MAX_SPEED")
     public Integer maxSpeed;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public Integer getMaxSpeed() {
-        return maxSpeed;
-    }
-
-    public void setMaxSpeed(Integer maxSpeed) {
-        this.maxSpeed = maxSpeed;
-    }
 }

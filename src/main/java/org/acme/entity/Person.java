@@ -3,11 +3,16 @@ package org.acme.entity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Person")
 public class Person extends PanacheEntityBase {
 
@@ -32,56 +37,8 @@ public class Person extends PanacheEntityBase {
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<OwnersDocument> ownersDocuments;
 
-    public void addOwnersDocument(OwnersDocument ownersDocument){
+    public void addOwnersDocument(OwnersDocument ownersDocument) {
         ownersDocument.person = this;
         this.ownersDocuments.add(ownersDocument);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Set<OwnersDocument> getOwnersDocuments() {
-        return ownersDocuments;
-    }
-
-    public void setOwnersDocuments(Set<OwnersDocument> ownersDocuments) {
-        this.ownersDocuments = ownersDocuments;
     }
 }
