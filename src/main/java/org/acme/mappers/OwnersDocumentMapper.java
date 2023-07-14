@@ -12,7 +12,6 @@ import java.util.List;
         componentModel = "jakarta",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface OwnersDocumentMapper {
-    OwnersDocumentMapper INSTANCE = Mappers.getMapper(OwnersDocumentMapper.class);
     OwnersDocumentDTO toDTO(OwnersDocument ownersDocument);
     List<OwnersDocumentDTO> toListDTO(List<OwnersDocument> ownersDocumentList);
     OwnersDocument toEntity(OwnersDocumentDTO ownersDocumentDTO);

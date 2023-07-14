@@ -35,7 +35,7 @@ public class PersonController {
     @APIResponse(
             responseCode = "200",
             description = "List of persons.",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class)))
+            content = @Content(mediaType = "application/json"))
     public Response getAll(){
         return Response.ok(personService.getAll()).build();
     }

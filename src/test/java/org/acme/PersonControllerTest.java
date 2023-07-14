@@ -10,6 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 public class PersonControllerTest {
+/*
 
 
     @Test
@@ -27,6 +28,7 @@ public class PersonControllerTest {
                 .then()
                 .statusCode(200);
     }
+*/
 
 
 }

@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: table-persons
+      author: VSmirnov
+      changes:
+        - createTable:
+            tableName: person
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  remarks: Идентификатор человека (первичный ключ)
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: ID_PERSON
+                    nullable=: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  remarks: Имя человека
+              - column:
+                  name: surname
+                  type: varchar(255)
+                  remarks: Фамилия человека
+              - column:
+                  name: age
+                  type: integer
+                  remarks: Возраст человека
+              - column:
+                  name: phone
+                  type: varchar(255)
+                  remarks: Номер телефона человека

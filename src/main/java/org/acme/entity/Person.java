@@ -11,27 +11,26 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Person")
+@ToString
+@Table(name = "person")
 public class Person extends PanacheEntityBase {
 
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Person_SEQ")
-    @SequenceGenerator(name = "Person_SEQ", sequenceName = "Person_SEQ", allocationSize = 10)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     public String name;
 
-    @Column(name = "SURNAME")
+    @Column(name = "surname")
     public String surname;
 
-    @Column(name = "AGE")
+    @Column(name = "age")
     public Integer age;
 
-    @Column(name = "PHONE")
+    @Column(name = "phone")
     public String phone;
 
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

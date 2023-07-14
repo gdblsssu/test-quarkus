@@ -7,24 +7,22 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "CAR")
+@Table(name = "car")
 public class Car extends PanacheEntityBase {
 
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Car_SEQ")
-    @SequenceGenerator(name = "Car_SEQ", sequenceName = "Car_SEQ", allocationSize = 10)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     public String name;
 
-    @Column(name = "COLOR")
+    @Column(name = "color")
     public String color;
 
-    @Column(name = "MAX_SPEED")
+    @Column(name = "max_speed")
     public Integer maxSpeed;
 
 }

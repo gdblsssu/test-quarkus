@@ -13,7 +13,7 @@ import java.util.List;
         componentModel = "jakarta",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface PersonMapper {
-    PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
+
     PersonDTO toDTO(Person person);
     List<PersonDTO> toListDTO(List<Person> personList);
     Person toEntity(PersonDTO personDTO);

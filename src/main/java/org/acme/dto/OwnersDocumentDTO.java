@@ -16,10 +16,10 @@ public class OwnersDocumentDTO {
     @Schema(title = "Owners document id", required = true)
     public Long id;
     @Schema(title = "Car for which the document was created", required = true)
-    public Car car;
+    public CarDTO carDTO;
     @Schema(title = "The person who owns the car", required = true)
     public String note;
     @Schema(title = "Owners document id", required = true)
-    public Person person;
+    public PersonDTO personDTO;
 
 }

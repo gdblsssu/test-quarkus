@@ -2,9 +2,9 @@ version: '3'
 services:
   db:
     image: postgres:latest
-    container_name: db
+    container_name: lb_db
     environment:
-      POSTGRES_DB: "testdb"
+      POSTGRES_DB: "lb_db"
       POSTGRES_USER: "testuser"
       POSTGRES_PASSWORD: "testpass"
     ports:

@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: table-owners-document
+      author: VSmirnov
+      changes:
+        - createTable:
+            tableName: owners_document
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  remarks: Идентификатор  (первичный ключ)
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: ID_OWNERS_DOCUMENT
+                    nullable=: false
+              - column:
+                  name: note
+                  type: varchar(255)
+                  remarks: Примечание к документу
+              - column:
+                  name: car
+                  type: bigint
+                  remarks: Авто (вторичный ключ)
+                  constraints:
+                    foreignKeyName: FK_ID_CAR
+                    references: CAR(id)
+              - column:
+                  name: vehicle_type
+                  type: bigint
+                  remarks: Тип ТС (вторичный ключ)
+                  constraints:
+                    foreignKeyName: FK_ID_VEHICLE_TYPE
+                    references: VEHICLE_TYPE(id)
+              - column:
+                  name: person
+                  type: bigint
+                  remarks: Владелец (вторичный ключ)
+                  constraints:
+                    foreignKeyName: FK_ID_PERSON
+                    references: PERSON(id)

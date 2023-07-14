@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: table-vehicle-type
+      author: VSmirnov
+      changes:
+        - createTable:
+            tableName: vehicle_type
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  remarks: Идентификатор типа ТС (первичный ключ)
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: ID_VEHICLE_TYPE
+                    nullable=: false
+              - column:
+                  name: code
+                  type: integer
+                  remarks: Код типа ТС
+              - column:
+                  name: type_name
+                  type: varchar(255)
+                  remarks: Наименование типа ТС

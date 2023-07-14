@@ -10,13 +10,12 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "OWNERSDOCUMENT")
+@Table(name = "owners_document")
 public class OwnersDocument extends PanacheEntityBase {
 
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OWNERSDOCUMENT_SEQ")
-    @SequenceGenerator(name = "OWNERSDOCUMENT_SEQ", sequenceName = "OWNERSDOCUMENT_SEQ", allocationSize = 10)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
@@ -28,6 +27,10 @@ public class OwnersDocument extends PanacheEntityBase {
     @JoinColumn(name = "car")
     public Car car;
 
-    @Column(name = "NOTE")
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "vehicle_type")
+    public VehicleType vehicleType;
+
+    @Column(name = "note")
     public String note;
 }

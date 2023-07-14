@@ -4,10 +4,7 @@ package org.acme.dto;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.acme.entity.OwnersDocument;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
@@ -16,11 +13,13 @@ import java.util.Set;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class PersonDTO {
+
+    @NonNull
     @Schema(title = "Person id", required = true)
     Long id;
+
     @NotBlank
     @Schema(title = "Person name", required = true)
     public String name;
@@ -34,6 +33,7 @@ public class PersonDTO {
     @NotBlank
     @Schema(title = "Person phone", required = true)
     public String phone;
-    public Set<OwnersDocument> ownersDocuments;
+
+    public Set<OwnersDocumentDTO> ownersDocuments;
 
 }

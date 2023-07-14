@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: table-cars
+      author: VSmirnov
+      changes:
+        - createTable:
+            tableName: car
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  remarks: Идентификатор авто (первичный ключ)
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: ID_CAR
+                    nullable=: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  remarks: Название авто
+              - column:
+                  name: color
+                  type: varchar(255)
+                  remarks: Цвет авто
+              - column:
+                  name: max_speed
+                  type: integer
+                  remarks: Максимальная скорость
