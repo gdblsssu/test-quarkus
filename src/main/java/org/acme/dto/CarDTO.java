@@ -23,6 +23,8 @@ public class CarDTO {
     @Max(value = 400, message = "The value must be less than 401")
     @Schema(title = "Car max speed between 10 to 400", required = true)
     public Integer maxSpeed;
+    @Schema(title = "Owners document id", required = true)
+    public PersonDTO personDTO;
 
 
 }

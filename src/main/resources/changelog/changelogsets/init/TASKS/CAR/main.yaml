@@ -27,3 +27,10 @@ databaseChangeLog:
                   name: max_speed
                   type: integer
                   remarks: Максимальная скорость
+              - column:
+                  name: person
+                  type: bigint
+                  remarks: Владелец (вторичный ключ)
+                  constraints:
+                    foreignKeyName: FK_ID_PERSON
+                    references: PERSON(id)

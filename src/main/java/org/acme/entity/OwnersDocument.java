@@ -18,9 +18,8 @@ public class OwnersDocument extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "person")
-    @JsonIgnore
     public Person person;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})

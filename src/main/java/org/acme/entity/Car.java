@@ -1,5 +1,6 @@
 package org.acme.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,5 +25,10 @@ public class Car extends PanacheEntityBase {
 
     @Column(name = "max_speed")
     public Integer maxSpeed;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "person")
+    @JsonIgnore
+    public Person person;
 
 }

@@ -21,7 +21,11 @@ import java.util.Set;
 
 @ApplicationScoped
 public class PersonODCarServiceImpl implements PersonODCarService {
-    @Inject
+    @Override
+    public void add(PersonDTO personDTO) {
+
+    }
+   /* @Inject
     PersonRepository personRepository;
     @Inject
     CarRepository carRepository;
@@ -49,5 +53,5 @@ public class PersonODCarServiceImpl implements PersonODCarService {
             person.addOwnersDocument(ownersDocument);
             ownersDocumentRepository.persist(ownersDocument);
         }
-    }
+    }*/
 }
