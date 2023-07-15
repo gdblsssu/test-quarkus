@@ -1,15 +1,13 @@
-package org.acme.service.impl;
+package org.acme.service.controllerlayer.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
 import org.acme.dto.PersonDTO;
 import org.acme.entity.Person;
 import org.acme.mappers.PersonMapper;
 import org.acme.repository.PersonRepository;
-import org.acme.service.PersonService;
+import org.acme.service.controllerlayer.PersonService;
 
 import java.util.List;
 

@@ -8,6 +8,7 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @Table(name = "car")
 public class Car extends PanacheEntityBase {

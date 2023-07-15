@@ -1,14 +1,13 @@
-package org.acme.service.impl;
+package org.acme.service.controllerlayer.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.acme.entity.Person;
 import org.acme.repository.PersonRepository;
-import org.acme.service.MassProcessingPersonService;
+import org.acme.service.controllerlayer.MassProcessingPersonService;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 @ApplicationScoped
 public class MassProcessingPersonServiceImpl implements MassProcessingPersonService {

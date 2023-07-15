@@ -6,10 +6,15 @@ import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(
         componentModel = "jakarta",
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        uses = {VehicleTypeMapper.class})
 public interface CarMapper {
     CarDTO toDTO(Car car);
     Car toEntity(CarDTO carDTO);
+
+    List<CarDTO> toDTOList(List<Car> carList);
 }

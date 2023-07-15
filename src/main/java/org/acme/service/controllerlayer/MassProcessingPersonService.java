@@ -1,6 +1,4 @@
-package org.acme.service;
-
-import org.acme.dto.PersonDTO;
+package org.acme.service.controllerlayer;
 
 public interface MassProcessingPersonService {
     public void add(int count);

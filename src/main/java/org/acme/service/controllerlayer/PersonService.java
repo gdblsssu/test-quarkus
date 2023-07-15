@@ -1,7 +1,6 @@
-package org.acme.service;
+package org.acme.service.controllerlayer;
 
 import org.acme.dto.PersonDTO;
-import org.acme.entity.Person;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
-package org.acme.service;
+package org.acme.service.controllerlayer;
 
 import org.acme.dto.CarDTO;
-import org.acme.entity.Car;
 
 import java.util.List;
 

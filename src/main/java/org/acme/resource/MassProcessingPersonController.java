@@ -2,20 +2,16 @@ package org.acme.resource;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.acme.dto.CarDTO;
-import org.acme.service.CarService;
-import org.acme.service.MassProcessingPersonService;
-import org.acme.service.PersonService;
+import org.acme.service.controllerlayer.MassProcessingPersonService;
+import org.acme.service.controllerlayer.PersonService;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
@@ -36,7 +32,7 @@ public class MassProcessingPersonController {
     @Timed(name = "addMassPersonTimer", description = "A measure of how long it takes to add the persons.", unit = MetricUnits.MILLISECONDS)
     @Operation(summary = "Add new persons", description = "Add new persons")
     @APIResponse(
-            responseCode = "200",
+            responseCode = "201",
             description = "Persons is added",
             content = @Content(mediaType = "application/json"))
     public Response add(

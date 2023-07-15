@@ -1,11 +1,6 @@
 package org.acme;
 
 import io.quarkus.test.junit.QuarkusTest;
-import jakarta.inject.Inject;
-import org.acme.dto.PersonDTO;
-import org.acme.service.PersonService;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 public class PersonServiceTest {

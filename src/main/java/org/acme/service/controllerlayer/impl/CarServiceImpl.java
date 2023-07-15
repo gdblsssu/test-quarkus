@@ -1,10 +1,8 @@
-package org.acme.service.impl;
+package org.acme.service.controllerlayer.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
 import org.acme.dto.CarDTO;
 import org.acme.dto.VehicleTypeDTO;
 import org.acme.entity.Car;
@@ -13,7 +11,7 @@ import org.acme.mappers.CarMapper;
 import org.acme.mappers.VehicleTypeMapper;
 import org.acme.repository.CarRepository;
 import org.acme.repository.VehicleTypeRepository;
-import org.acme.service.CarService;
+import org.acme.service.controllerlayer.CarService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +42,7 @@ public class CarServiceImpl implements CarService {
             carDTOList.add(carDTO);
         }
         return carDTOList;
+        //return carMapper.toDTOList(carRepository.findAll().list());
     }
 
     @Override
@@ -59,9 +58,7 @@ public class CarServiceImpl implements CarService {
     public void add(CarDTO carDTO) {
         Car car = carMapper.toEntity(carDTO);
         VehicleType vehicleType = vehicleTypeMapper.toEntity(carDTO.getVehicleTypeDTO());
-        System.out.println(vehicleType);
         car.setVehicleType(vehicleType);
-        System.out.println(car.getVehicleType());
         vehicleTypeRepository.persist(vehicleType);
         carRepository.persist(car);
     }

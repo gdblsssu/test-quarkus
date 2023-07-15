@@ -7,8 +7,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.dto.PersonDTO;
-import org.acme.entity.Person;
-import org.acme.service.PersonService;
+import org.acme.service.controllerlayer.PersonService;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -17,8 +16,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
-
-import java.util.List;
 
 @Path("/persons")
 @Produces(MediaType.APPLICATION_JSON)
@@ -62,7 +59,7 @@ public class PersonController {
     @Timed(name = "addPersonTimer", description = "A measure of how long it takes to add a person.", unit = MetricUnits.MILLISECONDS)
     @Operation(summary = "Add new person", description = "Add new person")
     @APIResponse(
-            responseCode = "200",
+            responseCode = "201",
             description = "Person is added",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class)))
     public Response add(

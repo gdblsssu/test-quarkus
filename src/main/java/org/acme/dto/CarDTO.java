@@ -10,6 +10,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class CarDTO {

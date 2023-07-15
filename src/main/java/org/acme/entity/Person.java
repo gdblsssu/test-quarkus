@@ -34,9 +34,9 @@ public class Person extends PanacheEntityBase {
     public String phone;
 
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Set<Car> carSet;
+    public Set<Car> carSet = new HashSet<>();
 
-    public void addOwnersDocument(Car car) {
+    public void addCar(Car car) {
         car.person = this;
         this.carSet.add(car);
     }

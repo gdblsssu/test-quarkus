@@ -7,9 +7,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.dto.CarDTO;
-import org.acme.dto.PersonDTO;
-import org.acme.entity.Car;
-import org.acme.service.CarService;
+import org.acme.service.controllerlayer.CarService;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -18,8 +16,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
-
-import java.util.List;
 
 @Path("/cars")
 @Produces(MediaType.APPLICATION_JSON)
@@ -63,7 +59,7 @@ public class CarController {
     @Timed(name = "addCarTimer", description = "A measure of how long it takes to add a car.", unit = MetricUnits.MILLISECONDS)
     @Operation(summary = "Add new car", description = "Add new car")
     @APIResponse(
-            responseCode = "200",
+            responseCode = "201",
             description = "Car is added",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarDTO.class)))
     public Response add(
