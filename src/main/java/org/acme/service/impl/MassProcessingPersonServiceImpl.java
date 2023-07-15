@@ -24,7 +24,7 @@ public class MassProcessingPersonServiceImpl implements MassProcessingPersonServ
             person.setSurname("testusersurname#" + i);
             person.setAge(25);
             person.setPhone("89234" + i);
-         //   person.setOwnersDocuments(new HashSet<>());
+            person.setCarSet(new HashSet<>());
             personRepository.persist(person);
         }
     }

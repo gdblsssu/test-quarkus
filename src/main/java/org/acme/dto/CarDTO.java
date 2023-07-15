@@ -1,5 +1,6 @@
 package org.acme.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -10,6 +11,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class CarDTO {
     @Schema(title = "Car id", required = true)
     public Long id;
@@ -24,7 +26,10 @@ public class CarDTO {
     @Schema(title = "Car max speed between 10 to 400", required = true)
     public Integer maxSpeed;
     @Schema(title = "Owners document id", required = true)
+    @JsonIgnore
     public PersonDTO personDTO;
+    @Schema(title = "Vehicle type", required = true)
+    public VehicleTypeDTO vehicleTypeDTO;
 
 
 }

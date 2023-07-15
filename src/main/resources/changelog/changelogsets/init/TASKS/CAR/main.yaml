@@ -34,3 +34,10 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: FK_ID_PERSON
                     references: PERSON(id)
+              - column:
+                  name: vehicle_type
+                  type: bigint
+                  remarks: Тип ТС (вторичный ключ)
+                  constraints:
+                    foreignKeyName: FK_ID_VEHICLE_TYPE
+                    references: VEHICLE_TYPE(id)

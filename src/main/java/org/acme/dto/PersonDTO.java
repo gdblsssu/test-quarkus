@@ -34,6 +34,6 @@ public class PersonDTO {
     @Schema(title = "Person phone", required = true)
     public String phone;
     @Schema(title = "Cars", required = false)
-    public Set<CarDTO> carDTOSetSet;
+    public Set<CarDTO> carDTOSet;
 
 }

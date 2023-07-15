@@ -2,17 +2,14 @@ package org.acme.resource;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.acme.dto.CarDTO;
 import org.acme.dto.PersonDTO;
-import org.acme.service.PersonODCarService;
-import org.acme.service.PersonService;
+import org.acme.service.AddPersonCar;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -28,7 +25,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 public class PersonODCarController {
 
     @Inject
-    PersonODCarService personODCarService;
+    AddPersonCar personODCarService;
     @POST
     @Transactional
     @Counted(name = "performedAddPersonODCar", description = "How many person, od, car have been added.")

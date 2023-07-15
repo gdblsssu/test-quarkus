@@ -8,7 +8,4 @@ databaseChangeLog:
   - include:
       file: changelog/changelogsets/init/TASKS/CAR/main.yaml
       relativeToChangelogFile: false
-  - include:
-      file: changelog/changelogsets/init/TASKS/OWNERSDOCUMENT/main.yaml
-      relativeToChangelogFile: false
 

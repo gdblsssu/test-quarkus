@@ -5,10 +5,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Setter
 @Getter
+@ToString
 @NoArgsConstructor
 @Table(name = "vehicle_type")
 public class VehicleType extends PanacheEntityBase {

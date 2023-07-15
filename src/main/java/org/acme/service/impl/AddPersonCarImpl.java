@@ -1,26 +1,11 @@
 package org.acme.service.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import org.acme.dto.OwnersDocumentDTO;
 import org.acme.dto.PersonDTO;
-import org.acme.entity.Car;
-import org.acme.entity.OwnersDocument;
-import org.acme.entity.Person;
-import org.acme.mappers.OwnersDocumentMapper;
-import org.acme.mappers.PersonMapper;
-import org.acme.repository.CarRepository;
-import org.acme.repository.OwnersDocumentRepository;
-import org.acme.repository.PersonRepository;
-import org.acme.service.PersonODCarService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.HashSet;
-import java.util.Set;
+import org.acme.service.AddPersonCar;
 
 @ApplicationScoped
-public class PersonODCarServiceImpl implements PersonODCarService {
+public class AddPersonCarImpl implements AddPersonCar {
     @Override
     public void add(PersonDTO personDTO) {
 

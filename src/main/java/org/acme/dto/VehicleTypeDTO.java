@@ -4,8 +4,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.*;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class VehicleTypeDTO {
     @Schema(name = "Vehicle type id", required = true)
     public Long id;
