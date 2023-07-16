@@ -64,4 +64,9 @@ public class CarServiceImpl implements CarService {
         existingCar.setMaxSpeed(car.getMaxSpeed());
         existingCar.setVehicleType(car.getVehicleType());
     }
+
+    @Override
+    public String getStatisticColor() {
+        return carRepository.getCountColor();
+    }
 }

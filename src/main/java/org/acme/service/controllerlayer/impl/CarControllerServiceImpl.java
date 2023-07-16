@@ -64,4 +64,9 @@ public class CarControllerServiceImpl implements CarControllerService {
         Car car = carMapper.toEntity(carDTO);
         carService.update(id, car);
     }
+
+    @Override
+    public String getStatisticsColor() {
+        return carService.getStatisticColor();
+    }
 }

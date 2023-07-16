@@ -11,4 +11,5 @@ public interface CarControllerService {
     public void add(CarDTO carDTO);
     public void delete(Long id);
     public void update(Long id, CarDTO carDTO);
+    public String getStatisticsColor();
 }

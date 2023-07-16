@@ -11,4 +11,5 @@ public interface CarService {
     public void add(Car car, VehicleType vehicleType);
     public void delete(Long id);
     public void update(Long id, Car car);
+    public String getStatisticColor();
 }

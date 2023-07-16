@@ -53,6 +53,19 @@ public class CarController {
         return Response.ok(carControllerService.getById(id)).build();
     }
 
+    @GET
+    @Path("/statistic-color")
+    @Counted(name = "performedGetStatisticsColor", description = "How many requests were made to find out the statistics on car colors.")
+    @Timed(name = "getStatisticsColorTimer", description = "A measure of the time required for the statistics on car colors.", unit = MetricUnits.MILLISECONDS)
+    @Operation(summary = "Get statistics on car colors", description = "Statistics on car colors")
+    @APIResponse(
+            responseCode = "200",
+            description = "Statistics on car colors",
+            content = @Content(mediaType = "application/json"))
+    public Response getStatisticsColor(){
+        return Response.ok(carControllerService.getStatisticsColor()).build();
+    }
+
     @POST
     @Transactional
     @Counted(name = "performedAddCar", description = "How many car have been added.")
