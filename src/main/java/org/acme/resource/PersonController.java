@@ -7,7 +7,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.dto.PersonDTO;
-import org.acme.service.controllerlayer.PersonService;
+import org.acme.service.controllerlayer.PersonControllerService;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -23,7 +23,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 public class PersonController {
 
     @Inject
-    PersonService personService;
+    PersonControllerService personControllerService;
 
     @GET
     @Counted(name = "performedGetAllPersons", description = "How many requests were made for the list of persons")
@@ -34,7 +34,7 @@ public class PersonController {
             description = "List of persons.",
             content = @Content(mediaType = "application/json"))
     public Response getAll(){
-        return Response.ok(personService.getAll()).build();
+        return Response.ok(personControllerService.getAll()).build();
     }
 
     @GET
@@ -50,7 +50,7 @@ public class PersonController {
             @Parameter(description = "The id that needs to be fetched", required = true)
             @PathParam("id") Long id
     ){
-        return Response.ok(personService.getById(id)).build();
+        return Response.ok(personControllerService.getById(id)).build();
     }
 
     @POST
@@ -66,8 +66,8 @@ public class PersonController {
             @Valid
             @Parameter(description = "Person to add", required = true)
             PersonDTO personDTO){
-        personService.add(personDTO);
-        return Response.ok(Response.status(Response.Status.CREATED)).entity(personService.getAll()).build();
+        personControllerService.add(personDTO);
+        return Response.ok(Response.status(Response.Status.CREATED)).entity(personControllerService.getAll()).build();
     }
 
     @DELETE
@@ -84,7 +84,7 @@ public class PersonController {
             @Parameter(description = "Id required for deletion", required = true)
             @PathParam("id") Long id
     ){
-        personService.deleteById(id);
+        personControllerService.deleteById(id);
         return Response.noContent().build();
     }
 
@@ -105,7 +105,7 @@ public class PersonController {
             @Parameter(description = "Person with data to update", required = true)
             PersonDTO personDTO
     ){
-        personService.update(id, personDTO);
-        return Response.ok(personService.getById(id)).build();
+        personControllerService.update(id, personDTO);
+        return Response.ok(personControllerService.getById(id)).build();
     }
 }

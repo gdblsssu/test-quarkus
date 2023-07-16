@@ -7,7 +7,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.dto.CarDTO;
-import org.acme.service.controllerlayer.CarService;
+import org.acme.service.controllerlayer.CarControllerService;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -23,7 +23,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 public class CarController {
 
     @Inject
-    CarService carService;
+    CarControllerService carControllerService;
 
     @GET
     @Counted(name = "performedGetAllCars", description = "How many requests were made for the list of cars")
@@ -34,7 +34,7 @@ public class CarController {
             description = "List of cars.",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarDTO.class)))
     public Response getAll(){
-        return Response.ok(carService.getAll()).build();
+        return Response.ok(carControllerService.getAll()).build();
     }
 
     @GET
@@ -50,7 +50,7 @@ public class CarController {
             @Parameter(description = "The id that needs to be fetched", required = true)
             @PathParam("id") Long id
     ){
-        return Response.ok(carService.getById(id)).build();
+        return Response.ok(carControllerService.getById(id)).build();
     }
 
     @POST
@@ -67,8 +67,8 @@ public class CarController {
             @Valid
             CarDTO carDTO
     ){
-        carService.add(carDTO);
-        return Response.status(Response.Status.CREATED).entity(carService.getAll()).build();
+        carControllerService.add(carDTO);
+        return Response.status(Response.Status.CREATED).entity(carControllerService.getAll()).build();
     }
 
     @DELETE
@@ -85,7 +85,7 @@ public class CarController {
             @Parameter(description = "Id required for deletion", required = true)
             @PathParam("id") Long id
     ){
-        carService.delete(id);
+        carControllerService.delete(id);
         return Response.noContent().build();
     }
 
@@ -106,7 +106,7 @@ public class CarController {
             @Valid
             CarDTO carDTO
     ){
-        carService.update(id, carDTO);
-        return Response.ok(carService.getById(id)).build();
+        carControllerService.update(id, carDTO);
+        return Response.ok(carControllerService.getById(id)).build();
     }
 }

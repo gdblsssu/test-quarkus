@@ -5,8 +5,8 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.acme.service.controllerlayer.MassProcessingPersonService;
-import org.acme.service.controllerlayer.PersonService;
+import org.acme.service.controllerlayer.MassPersonControllerService;
+import org.acme.service.controllerlayer.PersonControllerService;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -21,9 +21,9 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 public class MassProcessingPersonController {
 
     @Inject
-    MassProcessingPersonService massProcessingPersonService;
+    MassPersonControllerService massPersonControllerService;
     @Inject
-    PersonService personService;
+    PersonControllerService personControllerService;
 
     @POST
     @Path("/{count}")
@@ -39,8 +39,8 @@ public class MassProcessingPersonController {
             @Parameter(description = "The number of new persons", required = true)
             @PathParam("count") int count
     ){
-        massProcessingPersonService.add(count);
-        return Response.status(Response.Status.CREATED).entity(personService.getAll()).build();
+        massPersonControllerService.add(count);
+        return Response.status(Response.Status.CREATED).entity(personControllerService.getAll()).build();
     }
 
     @PUT
@@ -53,7 +53,7 @@ public class MassProcessingPersonController {
             description = "Persons is updated",
             content = @Content(mediaType = "application/json"))
     public Response add(){
-        massProcessingPersonService.updateAllAddYear();
-        return Response.status(Response.Status.CREATED).entity(personService.getAll()).build();
+        massPersonControllerService.updateAllAddYear();
+        return Response.status(Response.Status.CREATED).entity(personControllerService.getAll()).build();
     }
 }

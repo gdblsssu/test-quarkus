@@ -1,20 +1,18 @@
-package org.acme.service.controllerlayer.impl;
+package org.acme.service.logiclayer.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.acme.entity.Person;
 import org.acme.repository.PersonRepository;
-import org.acme.service.controllerlayer.MassProcessingPersonService;
+import org.acme.service.logiclayer.MassPersonService;
 
 import java.util.HashSet;
 import java.util.List;
 
 @ApplicationScoped
-public class MassProcessingPersonServiceImpl implements MassProcessingPersonService {
-
+public class MassPersonServiceImpl implements MassPersonService {
     @Inject
     PersonRepository personRepository;
-
     @Override
     public void add(int count) {
         for (int i = 0; i < count; i++) {

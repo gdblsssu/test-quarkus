@@ -4,7 +4,7 @@ import org.acme.dto.CarDTO;
 
 import java.util.List;
 
-public interface CarService {
+public interface CarControllerService {
 
     public List<CarDTO> getAll();
     public CarDTO getById(Long id);

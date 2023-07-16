@@ -5,7 +5,7 @@ import org.acme.dto.PersonDTO;
 import java.util.List;
 
 
-public interface PersonService {
+public interface PersonControllerService {
 
     public List<PersonDTO> getAll();
     public PersonDTO getById(Long id);

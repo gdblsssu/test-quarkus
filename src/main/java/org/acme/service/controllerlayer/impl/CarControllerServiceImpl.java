@@ -11,29 +11,26 @@ import org.acme.mappers.CarMapper;
 import org.acme.mappers.VehicleTypeMapper;
 import org.acme.repository.CarRepository;
 import org.acme.repository.VehicleTypeRepository;
-import org.acme.service.controllerlayer.CarService;
+import org.acme.service.controllerlayer.CarControllerService;
+import org.acme.service.logiclayer.CarService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
-public class CarServiceImpl implements CarService {
+public class CarControllerServiceImpl implements CarControllerService {
 
     @Inject
-    CarRepository carRepository;
+    CarService carService;
     @Inject
     CarMapper carMapper;
     @Inject
     VehicleTypeMapper vehicleTypeMapper;
-    @Inject
-    VehicleTypeRepository vehicleTypeRepository;
+
 
     @Override
     public List<CarDTO> getAll() {
-        List<Car> carList = carRepository.findAll().list();
-        if(carList.isEmpty()){
-            throw new NotFoundException();
-        }
+        List<Car> carList = carService.getAll();
         List<CarDTO> carDTOList = new ArrayList<>();
         for(Car car: carList){
             CarDTO carDTO = carMapper.toDTO(car);
@@ -42,15 +39,11 @@ public class CarServiceImpl implements CarService {
             carDTOList.add(carDTO);
         }
         return carDTOList;
-        //return carMapper.toDTOList(carRepository.findAll().list());
     }
 
     @Override
     public CarDTO getById(Long id) {
-        Car existingCar = carRepository.findById(id);
-        if(existingCar == null){
-            throw new NotFoundException();
-        }
+        Car existingCar = carService.getById(id);
         return carMapper.toDTO(existingCar);
     }
 
@@ -58,30 +51,17 @@ public class CarServiceImpl implements CarService {
     public void add(CarDTO carDTO) {
         Car car = carMapper.toEntity(carDTO);
         VehicleType vehicleType = vehicleTypeMapper.toEntity(carDTO.getVehicleTypeDTO());
-        car.setVehicleType(vehicleType);
-        vehicleTypeRepository.persist(vehicleType);
-        carRepository.persist(car);
+        carService.add(car, vehicleType);
     }
 
     @Override
     public void delete(Long id) {
-        Car existingCar = carRepository.findById(id);
-        if(existingCar == null){
-            throw new NotFoundException();
-        }
-        carRepository.deleteById(id);
+        carService.delete(id);
     }
 
     @Override
     public void update(Long id, CarDTO carDTO) {
-        Car carFromDTO = carMapper.toEntity(carDTO);
-        Car existingCar = carRepository.findById(id);
-        if(existingCar == null){
-            throw new NotFoundException();
-        }
-        existingCar.setName(carFromDTO.getName());
-        existingCar.setColor(carFromDTO.getColor());
-        existingCar.setMaxSpeed(carFromDTO.getMaxSpeed());
-        existingCar.setVehicleType(carFromDTO.getVehicleType());
+        Car car = carMapper.toEntity(carDTO);
+        carService.update(id, car);
     }
 }

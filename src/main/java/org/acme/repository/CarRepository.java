@@ -6,4 +6,5 @@ import org.acme.entity.Car;
 
 @ApplicationScoped
 public class CarRepository implements PanacheRepository<Car> {
+
 }
