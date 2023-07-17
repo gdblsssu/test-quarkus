@@ -1,4 +1,4 @@
-package org.acme.resource;
+package org.acme.resource.core;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -7,6 +7,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.dto.PersonDTO;
+import org.acme.resource.api.PersonApi;
 import org.acme.service.controllerlayer.PersonControllerService;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
@@ -21,7 +22,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 @Path("/persons")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class PersonController {
+public class PersonController implements PersonApi {
 
     @Inject
     PersonControllerService personControllerService;
@@ -29,11 +30,7 @@ public class PersonController {
     @GET
     @Counted(name = "performedGetAllPersons", description = "How many requests were made for the list of persons")
     @Timed(name = "getAllPersonTimer", description = "A measure of how long it takes to get a list of persons", unit = MetricUnits.MILLISECONDS)
-    @Operation(summary = "Get list of person", description = "Lists all available persons")
-    @APIResponse(
-            responseCode = "200",
-            description = "List of persons.",
-            content = @Content(mediaType = "application/json"))
+    @Override
     public Response getAll(){
         return Response.ok(personControllerService.getAll()).build();
     }
@@ -42,13 +39,8 @@ public class PersonController {
     @Path("/{id}")
     @Counted(name = "performedGetByIdPerson", description = "How many requests were completed for a particular person.")
     @Timed(name = "getByIdPersonTimer", description = "A measure of the time required for a particular person.", unit = MetricUnits.MILLISECONDS)
-    @Operation(summary = "Get person by id", description = "Available person")
-    @APIResponse(
-            responseCode = "200",
-            description = "The person",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class)))
+    @Override
     public Response getById(
-            @Parameter(description = "The id that needs to be fetched", required = true)
             @PathParam("id") Long id
     ){
         return Response.ok(personControllerService.getById(id)).build();
@@ -58,18 +50,9 @@ public class PersonController {
     @Transactional
     @Counted(name = "performedAddPerson", description = "How many person have been added.")
     @Timed(name = "addPersonTimer", description = "A measure of how long it takes to add a person.", unit = MetricUnits.MILLISECONDS)
-    @Operation(summary = "Add new person", description = "Add new person")
-    @APIResponse(
-            responseCode = "201",
-            description = "Person is added"
-    )
+    @Override
     public Response add(
             @Valid
-            @RequestBody(
-                    description = "Person to add",
-                    required = true,
-                    content = @Content(schema = @Schema(implementation = PersonDTO.class))
-            )
             PersonDTO personDTO){
         personControllerService.add(personDTO);
         return Response.ok(Response.status(Response.Status.CREATED)).entity(personControllerService.getAll()).build();
@@ -80,13 +63,8 @@ public class PersonController {
     @Transactional
     @Counted(name = "performedDeletePerson", description = "How many person have been deleted.")
     @Timed(name = "deletePersonTimer", description = "A measure of how long it takes to delete a person.", unit = MetricUnits.MILLISECONDS)
-    @Operation(summary = "Delete available person", description = "Delete available person")
-    @APIResponse(
-            responseCode = "204",
-            description = "Person is deleted"
-    )
+    @Override
     public Response delete(
-            @Parameter(description = "Id required for deletion", required = true)
             @PathParam("id") Long id
     ){
         personControllerService.deleteById(id);
@@ -98,21 +76,10 @@ public class PersonController {
     @Transactional
     @Counted(name = "performedUpdatePerson", description = "How many person have been updated.")
     @Timed(name = "updatePersonTimer", description = "A measure of how long it takes to update a person.", unit = MetricUnits.MILLISECONDS)
-    @Operation(summary = "Update available person", description = "Update available person")
-    @APIResponse(
-            responseCode = "200",
-            description = "Updated person",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class)))
+    @Override
     public Response update(
-            @Parameter(description = "ID needed to find the person to be updated", required = true)
             @PathParam("id") Long id,
-            @Valid
-            @RequestBody(
-                    description = "Person with data to update",
-                    required = true,
-                    content = @Content(schema = @Schema(implementation = PersonDTO.class))
-            )
-            PersonDTO personDTO
+            @Valid PersonDTO personDTO
     ){
         personControllerService.update(id, personDTO);
         return Response.ok(personControllerService.getById(id)).build();

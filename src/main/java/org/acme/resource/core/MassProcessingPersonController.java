@@ -1,4 +1,4 @@
-package org.acme.resource;
+package org.acme.resource.core;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
