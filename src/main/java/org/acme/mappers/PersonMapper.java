@@ -11,10 +11,15 @@ import java.util.List;
 
 @Mapper(
         componentModel = "jakarta",
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        uses = {CarMapper.class})
 public interface PersonMapper {
 
+    @Mapping(target = "carDTOSet", source = "carSet")
     PersonDTO toDTO(Person person);
-    List<PersonDTO> toListDTO(List<Person> personList);
+    @Mapping(target = "carSet", source = "carDTOSet")
     Person toEntity(PersonDTO personDTO);
+    List<PersonDTO> toListDTO(List<Person> personList);
+    List<Person> toListEntity(List<PersonDTO> personList);
+
 }

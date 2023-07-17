@@ -31,13 +31,7 @@ public class CarControllerServiceImpl implements CarControllerService {
     @Override
     public List<CarDTO> getAll() {
         List<Car> carList = carService.getAll();
-        List<CarDTO> carDTOList = new ArrayList<>();
-        for(Car car: carList){
-            CarDTO carDTO = carMapper.toDTO(car);
-            VehicleTypeDTO vehicleTypeDTO = vehicleTypeMapper.toDTO(car.getVehicleType());
-            carDTO.setVehicleTypeDTO(vehicleTypeDTO);
-            carDTOList.add(carDTO);
-        }
+        List<CarDTO> carDTOList = carMapper.toDTOList(carList);
         return carDTOList;
     }
 
