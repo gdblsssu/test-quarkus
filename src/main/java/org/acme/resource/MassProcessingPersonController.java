@@ -33,8 +33,8 @@ public class MassProcessingPersonController {
     @Operation(summary = "Add new persons", description = "Add new persons")
     @APIResponse(
             responseCode = "201",
-            description = "Persons is added",
-            content = @Content(mediaType = "application/json"))
+            description = "Persons is added"
+    )
     public Response add(
             @Parameter(description = "The number of new persons", required = true)
             @PathParam("count") int count
@@ -50,8 +50,8 @@ public class MassProcessingPersonController {
     @Operation(summary = "Update persons", description = "Update persons")
     @APIResponse(
             responseCode = "200",
-            description = "Persons is updated",
-            content = @Content(mediaType = "application/json"))
+            description = "Persons is updated"
+    )
     public Response add(){
         massPersonControllerService.updateAllAddYear();
         return Response.status(Response.Status.CREATED).entity(personControllerService.getAll()).build();

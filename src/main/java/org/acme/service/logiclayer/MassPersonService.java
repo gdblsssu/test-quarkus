@@ -1,6 +1,6 @@
 package org.acme.service.logiclayer;
 
 public interface MassPersonService {
-    public void add(int count);
-    public void updateAllAddYear();
+    void add(int count);
+    void updateAllAddYear();
 }

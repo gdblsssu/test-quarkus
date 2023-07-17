@@ -15,6 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 @Path("/cars")
@@ -32,7 +33,7 @@ public class CarController {
     @APIResponse(
             responseCode = "200",
             description = "List of cars.",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarDTO.class)))
+            content = @Content(mediaType = "application/json"))
     public Response getAll(){
         return Response.ok(carControllerService.getAll()).build();
     }
@@ -44,10 +45,10 @@ public class CarController {
     @Operation(summary = "Get car by id", description = "Available car")
     @APIResponse(
             responseCode = "200",
-            description = "The car",
+            description = "Found car",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarDTO.class)))
     public Response getById(
-            @Parameter(description = "The id that needs to be fetched", required = true)
+            @Parameter(description = "The ID that is needed to search for a car.", required = true)
             @PathParam("id") Long id
     ){
         return Response.ok(carControllerService.getById(id)).build();
@@ -73,10 +74,14 @@ public class CarController {
     @Operation(summary = "Add new car", description = "Add new car")
     @APIResponse(
             responseCode = "201",
-            description = "Car is added",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarDTO.class)))
+            description = "Car is added"
+    )
     public Response add(
-            @Parameter(description = "Car to add", required = true)
+            @RequestBody(
+                    description = "Car to add",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = CarDTO.class))
+            )
             @Valid
             CarDTO carDTO
     ){
@@ -92,8 +97,8 @@ public class CarController {
     @Operation(summary = "Delete available car", description = "Delete available car")
     @APIResponse(
             responseCode = "204",
-            description = "Person is deleted",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarDTO.class)))
+            description = "Car is deleted"
+    )
     public Response delete(
             @Parameter(description = "Id required for deletion", required = true)
             @PathParam("id") Long id
@@ -110,12 +115,16 @@ public class CarController {
     @Operation(summary = "Update available car", description = "Update available car")
     @APIResponse(
             responseCode = "200",
-            description = "Car is updated.",
+            description = "Updated car",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarDTO.class)))
     public Response update(
             @Parameter(description = "ID needed to find the car to be updated", required = true)
             @PathParam("id") Long id,
-            @Parameter(description = "Car with data to update", required = true)
+            @RequestBody(
+                    description = "Car with data to update",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = CarDTO.class))
+            )
             @Valid
             CarDTO carDTO
     ){

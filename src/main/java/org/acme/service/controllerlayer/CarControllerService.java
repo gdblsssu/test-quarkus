@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface CarControllerService {
 
-    public List<CarDTO> getAll();
-    public CarDTO getById(Long id);
-    public void add(CarDTO carDTO);
-    public void delete(Long id);
-    public void update(Long id, CarDTO carDTO);
-    public String getStatisticsColor();
+    List<CarDTO> getAll();
+    CarDTO getById(Long id);
+    void add(CarDTO carDTO);
+    void delete(Long id);
+    void update(Long id, CarDTO carDTO);
+    String getStatisticsColor();
 }

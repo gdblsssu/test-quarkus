@@ -15,6 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 @Path("/persons")
@@ -60,11 +61,15 @@ public class PersonController {
     @Operation(summary = "Add new person", description = "Add new person")
     @APIResponse(
             responseCode = "201",
-            description = "Person is added",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class)))
+            description = "Person is added"
+    )
     public Response add(
             @Valid
-            @Parameter(description = "Person to add", required = true)
+            @RequestBody(
+                    description = "Person to add",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = PersonDTO.class))
+            )
             PersonDTO personDTO){
         personControllerService.add(personDTO);
         return Response.ok(Response.status(Response.Status.CREATED)).entity(personControllerService.getAll()).build();
@@ -78,8 +83,8 @@ public class PersonController {
     @Operation(summary = "Delete available person", description = "Delete available person")
     @APIResponse(
             responseCode = "204",
-            description = "Person is deleted",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class)))
+            description = "Person is deleted"
+    )
     public Response delete(
             @Parameter(description = "Id required for deletion", required = true)
             @PathParam("id") Long id
@@ -96,13 +101,17 @@ public class PersonController {
     @Operation(summary = "Update available person", description = "Update available person")
     @APIResponse(
             responseCode = "200",
-            description = "Person is updated.",
+            description = "Updated person",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class)))
     public Response update(
             @Parameter(description = "ID needed to find the person to be updated", required = true)
             @PathParam("id") Long id,
             @Valid
-            @Parameter(description = "Person with data to update", required = true)
+            @RequestBody(
+                    description = "Person with data to update",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = PersonDTO.class))
+            )
             PersonDTO personDTO
     ){
         personControllerService.update(id, personDTO);
