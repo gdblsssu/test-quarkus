@@ -17,7 +17,7 @@ public class VehicleTypeRepository implements PanacheRepository<VehicleType> {
                 return existingVehicleType;
             }
         }
-        PanacheRepository.super.persist(vehicleType);
+        persist(vehicleType);
         return vehicleType;
     }
 }

@@ -44,7 +44,7 @@ public class PersonServiceImpl implements PersonService {
     public void add(Person person) {
         Set<Car> carSet = person.getCarSet();
         for(Car car: carSet){
-            vehicleTypeRepository.persist(car.getVehicleType());
+            car.setVehicleType(vehicleTypeRepository.saveOrSelect(car.getVehicleType()));
             carRepository.persist(car);
             person.addCar(car);
         }
