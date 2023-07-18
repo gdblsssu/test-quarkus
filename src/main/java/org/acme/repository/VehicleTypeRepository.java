@@ -9,19 +9,15 @@ import java.util.List;
 @ApplicationScoped
 public class VehicleTypeRepository implements PanacheRepository<VehicleType> {
 
-    @Override
-    public void persist(VehicleType vehicleType) {
+    public VehicleType saveOrSelect(VehicleType vehicleType){
         List<VehicleType> vehicleTypeList = findAll().list();
         for (VehicleType existingVehicleType: vehicleTypeList) {
             if(existingVehicleType.getCode().equals(vehicleType.getCode()) &&
-            existingVehicleType.getTypeName().equals(vehicleType.getTypeName())){
-                vehicleType = existingVehicleType;
-                System.out.println("0 - " + vehicleType);
-                return;
-            } else {
-                PanacheRepository.super.persist(vehicleType);
+                    existingVehicleType.getTypeName().equals(vehicleType.getTypeName())){
+                return existingVehicleType;
             }
         }
-
+        PanacheRepository.super.persist(vehicleType);
+        return vehicleType;
     }
 }

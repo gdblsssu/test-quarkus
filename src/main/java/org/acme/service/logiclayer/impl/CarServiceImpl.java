@@ -39,7 +39,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void add(Car car, VehicleType vehicleType) {
-        vehicleTypeRepository.persist(vehicleType);
+        vehicleType = vehicleTypeRepository.saveOrSelect(vehicleType);
         car.setVehicleType(vehicleType);
         carRepository.persist(car);
     }
