@@ -43,6 +43,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void add(Person person) {
         Set<Car> carSet = person.getCarSet();
+        personRepository.persist(person);
         for(Car car: carSet){
             car.setVehicleType(vehicleTypeRepository.saveOrSelect(car.getVehicleType()));
             carRepository.persist(car);
