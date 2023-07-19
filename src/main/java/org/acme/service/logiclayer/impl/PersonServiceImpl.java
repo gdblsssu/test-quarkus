@@ -57,6 +57,10 @@ public class PersonServiceImpl implements PersonService {
         if(existingPerson == null){
             throw new NotFoundException();
         }
+        Set<Car> carSet = existingPerson.getCarSet();
+        for (Car car: carSet){
+            car.setPerson(null);
+        }
         personRepository.deleteById(id);
     }
 

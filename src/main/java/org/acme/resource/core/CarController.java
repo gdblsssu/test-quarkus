@@ -19,7 +19,6 @@ import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
-@Path("/cars")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CarController implements CarApi {
@@ -27,7 +26,7 @@ public class CarController implements CarApi {
     @Inject
     CarControllerService carControllerService;
 
-    @GET
+
     @Counted(name = "performedGetAllCars", description = "How many requests were made for the list of cars")
     @Timed(name = "getAllCarsTimer", description = "A measure of how long it takes to get a list of cars", unit = MetricUnits.MILLISECONDS)
     @Override
@@ -35,8 +34,6 @@ public class CarController implements CarApi {
         return Response.ok(carControllerService.getAll()).build();
     }
 
-    @GET
-    @Path("/{id}")
     @Counted(name = "performedGetByIdCar", description = "How many requests were completed for a particular car.")
     @Timed(name = "getByIdCarTimer", description = "A measure of the time required for a particular car.", unit = MetricUnits.MILLISECONDS)
     @Override
@@ -46,8 +43,6 @@ public class CarController implements CarApi {
         return Response.ok(carControllerService.getById(id)).build();
     }
 
-    @GET
-    @Path("/statistic-color")
     @Counted(name = "performedGetStatisticsColor", description = "How many requests were made to find out the statistics on car colors.")
     @Timed(name = "getStatisticsColorTimer", description = "A measure of the time required for the statistics on car colors.", unit = MetricUnits.MILLISECONDS)
     @Override
@@ -55,7 +50,6 @@ public class CarController implements CarApi {
         return Response.ok(carControllerService.getStatisticsColor()).build();
     }
 
-    @POST
     @Transactional
     @Counted(name = "performedAddCar", description = "How many car have been added.")
     @Timed(name = "addCarTimer", description = "A measure of how long it takes to add a car.", unit = MetricUnits.MILLISECONDS)
@@ -68,8 +62,6 @@ public class CarController implements CarApi {
         return Response.status(Response.Status.CREATED).entity(carControllerService.getAll()).build();
     }
 
-    @DELETE
-    @Path("{id}")
     @Transactional
     @Counted(name = "performedDeleteCar", description = "How many car have been deleted.")
     @Timed(name = "deleteCarTimer", description = "A measure of how long it takes to delete a car.", unit = MetricUnits.MILLISECONDS)
@@ -81,8 +73,7 @@ public class CarController implements CarApi {
         return Response.noContent().build();
     }
 
-    @PUT
-    @Path("{id}")
+
     @Transactional
     @Counted(name = "performedUpdateCar", description = "How many car have been updated.")
     @Timed(name = "updateCarTimer", description = "A measure of how long it takes to update a car.", unit = MetricUnits.MILLISECONDS)
