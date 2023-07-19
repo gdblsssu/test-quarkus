@@ -12,7 +12,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class CarDTO {
     @Schema(title = "Car id", required = true)
     public Long id;
