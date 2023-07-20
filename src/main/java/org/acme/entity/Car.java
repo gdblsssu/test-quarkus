@@ -35,7 +35,7 @@ public class Car extends PanacheEntityBase {
     @JsonIgnore
     public Person person;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "vehicle_type")
     public VehicleType vehicleType;
 

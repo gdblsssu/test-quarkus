@@ -35,11 +35,11 @@ public class Person extends PanacheEntityBase {
     @Column(name = "phone")
     public String phone;
 
-    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     public Set<Car> carSet = new HashSet<>();
 
     public void addCar(Car car) {
-        car.person = this;
+        car.setPerson(this);
         this.carSet.add(car);
     }
 }
