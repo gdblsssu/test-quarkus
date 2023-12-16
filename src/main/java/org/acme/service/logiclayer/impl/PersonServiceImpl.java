@@ -2,6 +2,7 @@ package org.acme.service.logiclayer.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import org.acme.entity.Car;
 import org.acme.entity.Person;
@@ -41,6 +42,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public void add(Person person) {
         Set<Car> carSet = person.getCarSet();
         if(carSet.isEmpty()){
@@ -55,6 +57,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Person existingPerson = personRepository.findById(id);
         if(existingPerson == null){
